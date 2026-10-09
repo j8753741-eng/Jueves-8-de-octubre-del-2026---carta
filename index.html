@@ -1,0 +1,752 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08070d">
+  <title>Donde las horas me extrañan contigo</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #e8cc88;
+      --gold-light: #fff0c4;
+      --purple: #d78aff;
+      --deep-purple: #8e36ff;
+      --black: #08070d;
+      --panel: rgba(19, 16, 25, 0.91);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--black);
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: #f8edd9;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(104, 68, 128, .19), transparent 45%),
+        radial-gradient(ellipse at 0% 65%, rgba(131, 93, 43, .08), transparent 35%),
+        linear-gradient(180deg, #09070d, #100d17 48%, #08070c);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .22;
+      background-image:
+        radial-gradient(1px 1px at 12% 17%, #ffe6ac 98%, transparent),
+        radial-gradient(1px 1px at 81% 23%, #f7d5ff 98%, transparent),
+        radial-gradient(2px 2px at 67% 68%, #e5c17e 98%, transparent),
+        radial-gradient(1px 1px at 23% 82%, #fff0c4 98%, transparent),
+        radial-gradient(1px 1px at 92% 91%, #d78aff 98%, transparent);
+      background-size: 190px 190px;
+    }
+
+    .water-reflection {
+      position: fixed;
+      bottom: -30px;
+      left: -15%;
+      width: 130%;
+      height: 150px;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .22;
+      background: repeating-linear-gradient(
+        178deg,
+        transparent 0 8px,
+        rgba(220, 182, 255, .11) 9px,
+        transparent 11px 19px
+      );
+      filter: blur(3px);
+      animation: water 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes water {
+      from { transform: translateX(-2%) scaleY(.8); }
+      to { transform: translateX(2%) scaleY(1.15); }
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(100% - 28px, 790px);
+      margin: 0 auto;
+      padding: 30px 0 50px;
+    }
+
+    .top-ornament {
+      text-align: center;
+      color: var(--gold);
+      font-size: 25px;
+      letter-spacing: 13px;
+      padding-left: 13px;
+      margin: 0 0 16px;
+      text-shadow: 0 0 18px rgba(232, 204, 136, .45);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 18px 10px 28px;
+    }
+
+    .eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      line-height: 2;
+      color: #c7a9dd;
+    }
+
+    .hero h1 {
+      margin: 12px auto;
+      max-width: 700px;
+      font-size: clamp(31px, 7vw, 57px);
+      font-weight: 500;
+      line-height: 1.04;
+      color: var(--gold-light);
+      text-shadow:
+        0 0 12px rgba(232, 204, 136, .16),
+        0 7px 1px rgba(232, 204, 136, .035);
+    }
+
+    .hero .subtitle {
+      margin-top: 15px;
+      color: #d9c9e5;
+      font-size: 19px;
+      font-style: italic;
+    }
+
+    .gold-line {
+      width: min(240px, 65%);
+      height: 1px;
+      margin: 20px auto 0;
+      background: linear-gradient(90deg, transparent, var(--gold), #d6a9f5, var(--gold), transparent);
+      box-shadow: 0 0 10px rgba(232, 204, 136, .22);
+    }
+
+    /* Recuadro para la fotografía */
+    .photo-frame {
+      position: relative;
+      padding: 9px;
+      margin: 0 auto 28px;
+      border: 1px solid rgba(232, 204, 136, .58);
+      border-radius: 22px 22px 9px 9px;
+      background: linear-gradient(135deg, rgba(232,204,136,.11), rgba(110,67,143,.1));
+      box-shadow:
+        0 0 28px rgba(213, 175, 255, .08),
+        inset 0 0 20px rgba(232, 204, 136, .025);
+    }
+
+    .photo-frame::before {
+      content: "✧  UNA HUELLA GUARDADA EN EL CORAZÓN  ✧";
+      display: block;
+      padding: 9px 4px 12px;
+      text-align: center;
+      color: var(--gold);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    .photo-placeholder {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 230px;
+      overflow: hidden;
+      border-radius: 14px 14px 5px 5px;
+      background:
+        radial-gradient(ellipse at center, rgba(131, 83, 157, .19), transparent 70%),
+        linear-gradient(145deg, #17111f, #08070d);
+    }
+
+    .photo-placeholder img {
+      display: block;
+      width: 100%;
+      max-height: 540px;
+      object-fit: contain;
+      cursor: zoom-in;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .photo-placeholder img[src=""],
+    .photo-placeholder img:not([src]) {
+      display: none;
+    }
+
+    .photo-hint {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 25px;
+      text-align: center;
+      pointer-events: none;
+      color: #e4d2ef;
+    }
+
+    .photo-hint .cat {
+      font-size: 53px;
+      filter: drop-shadow(0 0 13px rgba(215, 138, 255, .35));
+    }
+
+    .photo-hint span:last-child {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      line-height: 1.9;
+      letter-spacing: 1px;
+    }
+
+    .photo-frame.has-photo .photo-hint {
+      display: none;
+    }
+
+    .photo-caption {
+      padding: 12px 5px 3px;
+      text-align: center;
+      color: #bba9ca;
+      font-size: 15px;
+      font-style: italic;
+    }
+
+    /* Carta */
+    .letter {
+      position: relative;
+      padding: clamp(23px, 5vw, 47px);
+      overflow: hidden;
+      border: 1px solid rgba(232, 204, 136, .32);
+      border-radius: 7px 27px 7px 27px;
+      background:
+        linear-gradient(160deg, rgba(28, 23, 34, .96), rgba(12, 10, 17, .96));
+      box-shadow:
+        0 18px 55px rgba(0, 0, 0, .35),
+        0 0 30px rgba(173, 113, 214, .055),
+        inset 0 0 45px rgba(232, 204, 136, .018);
+    }
+
+    .letter::before {
+      content: "🐾";
+      position: absolute;
+      right: 17px;
+      top: 10px;
+      opacity: .18;
+      font-size: 26px;
+      transform: rotate(-18deg);
+    }
+
+    .letter-date {
+      text-align: center;
+      color: var(--gold);
+      font-size: 17px;
+      letter-spacing: 2px;
+      margin-bottom: 23px;
+    }
+
+    .letter-title {
+      text-align: center;
+      font-size: clamp(24px, 5.5vw, 37px);
+      line-height: 1.15;
+      font-weight: 600;
+      color: var(--gold-light);
+      margin-bottom: 31px;
+      text-shadow: 0 0 16px rgba(232, 204, 136, .12);
+    }
+
+    .letter p {
+      position: relative;
+      margin: 0 0 20px;
+      font-size: clamp(20px, 4.2vw, 24px);
+      line-height: 1.66;
+      font-weight: 400;
+      color: #f0e6f2;
+      text-shadow: 0 3px 9px rgba(226, 188, 255, .07);
+    }
+
+    .letter p:first-of-type {
+      color: var(--gold-light);
+      font-size: 23px;
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+
+    .letter strong {
+      color: var(--gold-light);
+      font-weight: 700;
+      text-shadow: 0 0 12px rgba(232, 204, 136, .12);
+    }
+
+    .letter .signature {
+      margin-top: 28px;
+      margin-bottom: 0;
+      text-align: center;
+      color: var(--gold-light);
+      font-size: clamp(20px, 4.5vw, 27px);
+      font-weight: 700;
+      letter-spacing: .5px;
+      overflow-wrap: anywhere;
+    }
+
+    .paw-divider {
+      text-align: center;
+      margin: 28px 0;
+      color: var(--gold);
+      letter-spacing: 12px;
+      padding-left: 12px;
+      font-size: 19px;
+      opacity: .9;
+    }
+
+    /* Declaración final en neón */
+    .eternal-promise {
+      position: relative;
+      margin: 33px 0 30px;
+      padding: 28px 20px 30px;
+      text-align: center;
+      border: 1px solid rgba(193, 105, 255, .4);
+      border-radius: 22px 5px 22px 5px;
+      background:
+        radial-gradient(ellipse at center, rgba(130, 43, 199, .16), transparent 75%),
+        rgba(13, 8, 22, .76);
+      box-shadow:
+        0 0 18px rgba(151, 59, 255, .1),
+        inset 0 0 25px rgba(151, 59, 255, .04);
+    }
+
+    .eternal-promise .tiny-title {
+      margin-bottom: 16px;
+      color: #d9a7ff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+      line-height: 2;
+      text-transform: uppercase;
+    }
+
+    .eternal-promise .neon-message {
+      color: #e9c6ff;
+      font-size: clamp(22px, 5.4vw, 32px);
+      line-height: 1.45;
+      text-shadow:
+        0 0 5px #d78aff,
+        0 0 12px #bb55ff,
+        0 0 27px rgba(156, 51, 255, .75);
+    }
+
+    .eternal-promise .neon-love {
+      display: block;
+      margin-top: 20px;
+      color: #f2d6ff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(13px, 3.5vw, 18px);
+      font-weight: 600;
+      letter-spacing: 2px;
+      line-height: 1.9;
+      overflow-wrap: anywhere;
+      text-shadow:
+        0 0 5px #d78aff,
+        0 0 14px #bb55ff,
+        0 0 28px rgba(156, 51, 255, .85);
+    }
+
+    .noah-paw {
+      display: block;
+      margin-top: 16px;
+      font-size: 27px;
+      filter: drop-shadow(0 0 10px rgba(215, 138, 255, .6));
+    }
+
+    /* Botón del poema */
+    .poem-section {
+      text-align: center;
+      padding: 7px 0 12px;
+    }
+
+    .poem-intro {
+      margin-bottom: 19px;
+      color: #cbb7d9;
+      font-size: 19px;
+      font-style: italic;
+    }
+
+    .poem-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      width: min(100%, 370px);
+      min-height: 58px;
+      padding: 15px 22px;
+      border: 1px solid rgba(232, 204, 136, .8);
+      border-radius: 5px 20px 5px 20px;
+      background: linear-gradient(115deg, #342443, #17101e 65%, #342443);
+      color: var(--gold-light);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-decoration: none;
+      text-transform: uppercase;
+      box-shadow: 0 0 22px rgba(232, 204, 136, .09);
+      transition: transform .25s ease, box-shadow .25s ease;
+      cursor: pointer;
+    }
+
+    .poem-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 26px rgba(215, 138, 255, .23);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 29px;
+      color: #8f7d9e;
+      font-size: 15px;
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    .footer .paw {
+      display: block;
+      margin-top: 10px;
+      color: var(--gold);
+      font-size: 22px;
+      letter-spacing: 9px;
+      padding-left: 9px;
+    }
+
+    /* Visor de fotografía a pantalla completa */
+    .photo-viewer {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      padding: 66px 12px 16px;
+      background: rgba(4, 3, 8, .98);
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+    }
+
+    .photo-viewer.open {
+      display: flex;
+    }
+
+    .photo-viewer img {
+      display: block;
+      max-width: 100%;
+      max-height: calc(100dvh - 95px);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border: 1px solid rgba(232, 204, 136, .45);
+      border-radius: 5px;
+      box-shadow: 0 0 35px rgba(192, 128, 255, .13);
+    }
+
+    .back-button {
+      position: absolute;
+      top: max(13px, env(safe-area-inset-top));
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      width: max-content;
+      max-width: calc(100% - 28px);
+      padding: 13px 20px;
+      border: 1px solid var(--gold);
+      border-radius: 9px;
+      background: #1a1222;
+      color: var(--gold-light);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 0 20px rgba(232, 204, 136, .15);
+      cursor: pointer;
+    }
+
+    .viewer-hint {
+      position: absolute;
+      bottom: max(15px, env(safe-area-inset-bottom));
+      left: 10px;
+      right: 10px;
+      text-align: center;
+      color: #c7b7d4;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        width: min(100% - 20px, 790px);
+        padding-top: 20px;
+      }
+
+      .hero {
+        padding-bottom: 22px;
+      }
+
+      .photo-placeholder {
+        min-height: 190px;
+      }
+
+      .letter {
+        padding: 24px 20px;
+      }
+
+      .letter p {
+        line-height: 1.58;
+      }
+
+      .letter-date {
+        font-size: 14px;
+        letter-spacing: 1.3px;
+      }
+
+      .letter-title {
+        font-size: 27px;
+      }
+
+      .eternal-promise {
+        padding: 24px 15px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="water-reflection" aria-hidden="true"></div>
+
+  <main class="page">
+    <div class="top-ornament" aria-hidden="true">✧ ♡ ✧</div>
+
+    <header class="hero">
+      <div class="eyebrow">Una pequeña eternidad para ti · Octubre</div>
+      <h1>Donde las horas<br>me extrañan contigo</h1>
+      <p class="subtitle">Una huellita de amor esperándote al despertar</p>
+      <div class="gold-line"></div>
+    </header>
+
+    <!-- IMAGEN: cambia el nombre del archivo en el atributo src.
+         Ejemplo: src="foto-valeria.png"
+         Sube la imagen a GitHub en la misma carpeta que index.html. -->
+    <section class="photo-frame" id="photoFrame" aria-label="Fotografía de la carta">
+      <div class="photo-placeholder" id="photoArea">
+        <img
+          id="letterPhoto"
+          src="IMG_20261008_222725.png"
+          alt="Una fotografía especial para Valeria"
+          title="Toca dos veces para ampliar la fotografía"
+        >
+        <div class="photo-hint" id="photoHint">
+          <span class="cat">🐈‍⬛</span>
+          <span>Tu fotografía especial irá aquí<br>Una imagen para guardar cerquita del corazón</span>
+        </div>
+      </div>
+      <p class="photo-caption">Un rincón de este universo que siempre me lleva a ti ♡</p>
+    </section>
+
+    <article class="letter">
+      <p class="letter-date">♡ JUEVES 8 DE OCTUBRE DE 2026 ♡</p>
+
+      <h2 class="letter-title">✦ DONDE LAS HORAS ME EXTRAÑAN CONTIGO ✦</h2>
+
+      <p>Mi Infinito Suspiro de Amor,</p>
+
+      <p>Buenos días, mi princesa preciosa. ❤️‍🔥💋 Dejé este pedacito de mi corazón esperándote desde temprano, para que, al abrir tus ojitos, recuerdes que hay alguien que te ama con cada latido, incluso en los días en que hablamos poquito.</p>
+
+      <p>Sé que has estado trabajando mucho, mi vida, y aunque últimamente no hablemos como antes, no pasa absolutamente nada, amor mío. Mi amor por ti no disminuye con los silencios ni se apaga con la distancia; sigues siendo mi niña, mi felicidad y el lugar al que siempre quiere regresar mi corazón.</p>
+
+      <p>Falta poquito para volver a verte, y quizá sea egoísta pedirle al tiempo que corra, pero es que te extraño demasiado, mi cielo. Aquí, encerradito en casa, las horas parecen caminar despacito y a veces me siento sin rumbo porque me hace falta tu presencia, tus ojitos y esa manera tan tuya de hacer que todo se sienta bonito. 🥹❤️</p>
+
+      <p>Ojalá pudiera abrazarte ahora mismo, esconder mi rostro en tu cuellito y besarte hasta que entendieras que ni un solo día lejos de ti consigue hacerme amarte menos.</p>
+
+      <p><strong>Te sigo eligiendo, te sigo extrañando y te sigo amando con la misma locura de siempre, mi princesa.</strong> Y cuando por fin vuelva a tenerte cerquita, voy a abrazarte como si quisiera recuperar en un instante todas las horas que me hicieron falta tus besitos.</p>
+
+      <p>Que esta cartita te acompañe hoy, mañana y cada vez que necesites recordar cuánto te amo. 💗🐈‍⬛</p>
+
+      <p>Tuyo en cada segundo, incluso en los que parecen eternos sin ti. 💋❤️‍🔥</p>
+
+      <p class="signature">VALERIA PETRO VILLAZÓN</p>
+
+      <div class="paw-divider" aria-hidden="true">· 🐾 · ♡ · 🐾 ·</div>
+
+      <!-- Declaración original en francés, dedicada a Valeria y a Noah -->
+      <section class="eternal-promise">
+        <p class="tiny-title">Une promesse qui traverse le ciel</p>
+
+        <p class="neon-message">
+          Je t’aime à l’infini, Valeria,<br>
+          et que notre petit Noah veille sur nous depuis le ciel,<br>
+          partout où nos cœurs iront. 💜
+        </p>
+
+        <strong class="neon-love">TE AMO VALERIA PETRO VILLAZÓN</strong>
+
+        <span class="noah-paw" aria-label="Huellitas de amor">🐾 🐈‍⬛ ✨</span>
+      </section>
+    </article>
+
+    <div class="paw-divider" aria-hidden="true">✧ 🐾 ✧</div>
+
+    <section class="poem-section">
+      <p class="poem-intro">Y todavía guardé unos versos más para ti, mi amor…</p>
+
+      <!-- ENLACE DEL POEMA:
+           Reemplaza # por el enlace de GitHub Pages del poema de hoy. -->
+      <a
+        class="poem-button"
+        id="poemLink"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+        onclick="return checkPoemLink(event)"
+      >
+        <span aria-hidden="true">♡</span>
+        Abrir el poema de este día
+        <span aria-hidden="true">🐾</span>
+      </a>
+    </section>
+
+    <footer class="footer">
+      Preparado con amor, para que te encuentre en cualquier momento de tu día.
+      <span class="paw" aria-hidden="true">♡ · 🐾 · ♡</span>
+    </footer>
+  </main>
+
+  <!-- Visor ampliado: se abre con doble toque o doble clic -->
+  <div
+    class="photo-viewer"
+    id="photoViewer"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Fotografía ampliada"
+    aria-hidden="true"
+  >
+    <button class="back-button" id="backButton" type="button">
+      ← Volver a la carta
+    </button>
+
+    <img id="expandedPhoto" src="" alt="Fotografía ampliada para Valeria">
+
+    <p class="viewer-hint">Pulsa “Volver a la carta” o la tecla Esc para cerrar</p>
+  </div>
+
+  <script>
+    (() => {
+      const photo = document.getElementById('letterPhoto');
+      const photoFrame = document.getElementById('photoFrame');
+      const photoHint = document.getElementById('photoHint');
+      const viewer = document.getElementById('photoViewer');
+      const expandedPhoto = document.getElementById('expandedPhoto');
+      const backButton = document.getElementById('backButton');
+
+      // La imagen se muestra únicamente si has colocado un archivo válido.
+      function updatePhotoState() {
+        const hasPhoto = photo.complete && photo.naturalWidth > 0;
+        photoFrame.classList.toggle('has-photo', hasPhoto);
+        photoHint.style.display = hasPhoto ? 'none' : 'flex';
+      }
+
+      photo.addEventListener('load', updatePhotoState);
+      photo.addEventListener('error', () => {
+        photoFrame.classList.remove('has-photo');
+        photoHint.style.display = 'flex';
+      });
+
+      // Doble clic para computador y doble toque para dispositivos móviles.
+      let lastTap = 0;
+
+      function openPhoto() {
+        if (!photo.complete || photo.naturalWidth === 0) return;
+
+        expandedPhoto.src = photo.src;
+        viewer.classList.add('open');
+        viewer.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        backButton.focus({ preventScroll: true });
+      }
+
+      function closePhoto() {
+        viewer.classList.remove('open');
+        viewer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        photo.focus({ preventScroll: true });
+      }
+
+      photo.addEventListener('dblclick', openPhoto);
+
+      photo.addEventListener('touchend', (event) => {
+        const now = Date.now();
+        if (now - lastTap < 350) {
+          event.preventDefault();
+          openPhoto();
+          lastTap = 0;
+        } else {
+          lastTap = now;
+        }
+      }, { passive: false });
+
+      backButton.addEventListener('click', closePhoto);
+
+      // Tocar fuera de la foto también cierra el visor.
+      viewer.addEventListener('click', (event) => {
+        if (event.target === viewer) closePhoto();
+      });
+
+      // Escape cierra la imagen en computador.
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && viewer.classList.contains('open')) {
+          closePhoto();
+        }
+      });
+
+      updatePhotoState();
+    })();
+
+    // Evita que el botón del poema abra un enlace vacío por accidente.
+    function checkPoemLink(event) {
+      const link = document.getElementById('poemLink');
+      if (!link.getAttribute('href') || link.getAttribute('href') === '#') {
+        event.preventDefault();
+        alert('Añade primero el enlace de GitHub Pages del poema de hoy en el código.');
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>
